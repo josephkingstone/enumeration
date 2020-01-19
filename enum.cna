@@ -1,0 +1,55 @@
+##########################
+##Define the pop up menu name
+##
+##########################
+
+popup beacon_top {
+	menu "Enumeration" {
+
+
+##########################
+##List All Items in Pop Up Menu
+##
+##########################
+
+
+########Get Domain Security Identifier (SID)#######
+		item "List Domain SID"{
+			local('$bid');
+				foreach $bid ($1){
+					getdomainsid($bid);
+					}
+				}
+					
+					
+					
+########List computers in Domain##################
+					
+		item "List Computers"{
+			local('$bid');
+				foreach $bid ($1){
+					getdomaincomputer($bid);
+				}
+			}
+		}
+	}
+  
+
+
+###########################
+##Define variables for functions e.g., sub
+##
+###########################
+
+sub getdomainsid{
+
+bexecute_assembly($1, script_resource('/exe/SharpView.exe'), "Get-DomainSID");
+
+}
+
+sub getdomaincomputer{
+
+bexecute_assembly($1, script_resource('/exe/SharpView.exe'), "Get-DomainComputer");
+
+}
+
