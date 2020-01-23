@@ -33,6 +33,18 @@ popup beacon_top {
 			}
 		}
 	}
+	
+	
+########List Admins in Domain##################
+					
+		item "List Admins in Domain"{
+			local('$bid');
+				foreach $bid ($1){
+					getnetuseradmin($bid);
+				}
+			}
+		}
+	}
   
 
 
@@ -50,6 +62,12 @@ bexecute_assembly($1, script_resource('/exe/SharpView.exe'), "Get-DomainSID");
 sub getdomaincomputer{
 
 bexecute_assembly($1, script_resource('/exe/SharpView.exe'), "Get-DomainComputer");
+
+}
+
+sub getnetuseradmin{
+
+bexecute_assembly($1, script_resource('/exe/SharpView.exe'), "Get-NetUser -AdminCount true");
 
 }
 
