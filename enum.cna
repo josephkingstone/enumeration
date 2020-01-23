@@ -12,6 +12,65 @@ popup beacon_top {
 ##
 ##########################
 
+menu "Domain Group Enumeration"
+{
+########List Groups in Domain##################
+					
+		item "Domain Admin"{
+			local('$bid');
+				foreach $bid ($1){
+					getnetgroup($bid);
+				}
+			}
+}
+
+menu "Domain User Enumeration"
+{
+########List People in Domain##################
+					
+		item "People"{
+			local('$bid');
+				foreach $bid ($1){
+					##getnetuseradmin($bid);
+				}
+			}
+}
+
+menu "Domain Computer Object Enumeration"
+{
+########List Computers in Domain##################
+					
+		item "Computers"{
+			local('$bid');
+				foreach $bid ($1){
+					##getnetuseradmin($bid);
+				}
+			}
+
+}
+
+menu "Domain/Forest Enumeration"
+{
+########List Domains/Forest in Domain##################
+					
+		item "Domains/Forests"{
+			local('$bid');
+				foreach $bid ($1){
+					##getnetuseradmin($bid);
+				}
+			}
+}
+
+menu "Trust"
+########List Trust in Domain##################
+{					
+		item "Trust"{
+			local('$bid');
+				foreach $bid ($1){
+					##getnetuseradmin($bid);
+				}
+			}
+}
 
 ########Get Domain Security Identifier (SID)#######
 		item "List Domain SID"{
@@ -80,3 +139,9 @@ bexecute_assembly($1, script_resource('/exe/SharpView.exe'), "Get-NetUser -Admin
 
 }
 
+
+sub getnetgroup{
+
+bexecute_assembly($1, script_resource('/exe/SharpView.exe'), 'Get-NetGroup -Identity "Domain Admins" -Recursive');
+
+}
