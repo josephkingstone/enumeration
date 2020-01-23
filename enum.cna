@@ -31,8 +31,8 @@ popup beacon_top {
 					getdomaincomputer($bid);
 				}
 			}
-		}
-	}
+		
+	
 	
 	
 ########List Admins in Domain##################
@@ -43,6 +43,15 @@ popup beacon_top {
 					getnetuseradmin($bid);
 				}
 			}
+
+
+
+
+################
+## These last two brackets close out the above functions
+##
+##
+################
 		}
 	}
   
