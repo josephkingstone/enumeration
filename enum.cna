@@ -15,73 +15,60 @@ popup beacon_top {
 menu "Domain Group Enumeration"
 {
 ########List Groups in Domain##################
-					
+		item "Enterprise Admin"{
+			local('$bid');
+				foreach $bid ($1){
+					getnetgroupenterpriseadmin($bid);
+				}
+			}
+			
 		item "Domain Admin"{
 			local('$bid');
 				foreach $bid ($1){
-					getnetgroup($bid);
+					getnetgroupdomainadmin($bid);
 				}
 			}
+			
+		item "Schema Admin"{
+			local('$bid');
+				foreach $bid ($1){
+					getnetgroupschemaadmin($bid);
+				}
+			}
+		
+		item "Account Operator"{
+			local('$bid');
+				foreach $bid ($1){
+					getnetgroupaccountoperator($bid);
+				}
+			}
+					
+			
+		item "Administrator"{
+			local('$bid');
+				foreach $bid ($1){
+					getnetgroupadministrator($bid);
+				}
+			}
+			
+############			
 }
 
 menu "Domain User Enumeration"
 {
 ########List People in Domain##################
 					
-		item "People"{
+		item "List Admins in Domain"{
 			local('$bid');
 				foreach $bid ($1){
-					##getnetuseradmin($bid);
+					getnetuseradmin($bid);
 				}
 			}
 }
 
 menu "Domain Computer Object Enumeration"
 {
-########List Computers in Domain##################
-					
-		item "Computers"{
-			local('$bid');
-				foreach $bid ($1){
-					##getnetuseradmin($bid);
-				}
-			}
-
-}
-
-menu "Domain/Forest Enumeration"
-{
-########List Domains/Forest in Domain##################
-					
-		item "Domains/Forests"{
-			local('$bid');
-				foreach $bid ($1){
-					##getnetuseradmin($bid);
-				}
-			}
-}
-
-menu "Trust"
-########List Trust in Domain##################
-{					
-		item "Trust"{
-			local('$bid');
-				foreach $bid ($1){
-					##getnetuseradmin($bid);
-				}
-			}
-}
-
-########Get Domain Security Identifier (SID)#######
-		item "List Domain SID"{
-			local('$bid');
-				foreach $bid ($1){
-					getdomainsid($bid);
-					}
-				}
-					
-					
-					
+	
 ########List computers in Domain##################
 					
 		item "List Computers"{
@@ -91,17 +78,34 @@ menu "Trust"
 				}
 			}
 		
-	
-	
-	
-########List Admins in Domain##################
+
+}
+
+menu "Domain/Forest Enumeration"
+{
+########List Domains/Forest in Domain##################
 					
-		item "List Admins in Domain"{
+		
+########Get Domain Security Identifier (SID)#######
+		item "List Domain SID"{
 			local('$bid');
 				foreach $bid ($1){
-					getnetuseradmin($bid);
+					getdomainsid($bid);
+					}
 				}
-			}
+}
+
+menu "Trust"
+########List Trust in Domain##################
+{					
+	
+}
+
+					
+					
+
+	
+	
 
 
 
@@ -139,9 +143,32 @@ bexecute_assembly($1, script_resource('/exe/SharpView.exe'), "Get-NetUser -Admin
 
 }
 
+sub getnetgroupenterpriseadmin{
 
-sub getnetgroup{
+bexecute_assembly($1, script_resource('/exe/SharpView.exe'), 'Get-NetGroup -Identity "Enterprise Admins" -Recursive');
+
+}
+
+sub getnetgroupdomainadmin{
 
 bexecute_assembly($1, script_resource('/exe/SharpView.exe'), 'Get-NetGroup -Identity "Domain Admins" -Recursive');
+
+}
+
+sub getnetgroupschemaadmin{
+
+bexecute_assembly($1, script_resource('/exe/SharpView.exe'), 'Get-NetGroup -Identity "Schema Admins" -Recursive');
+
+}
+
+sub getnetgroupaccountoperator{
+
+bexecute_assembly($1, script_resource('/exe/SharpView.exe'), 'Get-NetGroup -Identity "Account Operators" -Recursive');
+
+}
+
+sub getnetgroupadministrator{
+
+bexecute_assembly($1, script_resource('/exe/SharpView.exe'), 'Get-NetGroup -Identity "Administrators" -Recursive');
 
 }
