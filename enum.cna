@@ -139,7 +139,7 @@ bexecute_assembly($1, script_resource('/exe/SharpView.exe'), "Get-DomainComputer
 
 sub getnetuseradmin{
 
-bexecute_assembly($1, script_resource('/exe/SharpView.exe'), "Get-NetUser -AdminCount true");
+bexecute_assembly($1, script_resource('/exe/SharpView.exe'), "Get-NetUser -AdminCount");
 
 }
 
